@@ -22,3 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/patents', [PatentController::class,'index']);
 Route::post('/patents/create', [PatentController::class,'store']);
+Route::post('/patents/{id}', [PatentController::class,'edit']);
+Route::delete('/patents/delete/{id}', [PatentController::class,'delete']);
+
+
+

@@ -18,4 +18,15 @@ class PatentController extends Controller
         return response()->json(['data' => $data, 'status' => 'OK'], 200);
 
     }
+    public function edit(Request $request, $id) {
+        $data = Patent::find($id);
+        $data->patent = $request->patent;
+        $data->save();
+        return response()->json(['data' => $data,'status' => 'OK'], 200);
+    }
+    public function delete($id) {
+        $data = Patent::find($id);
+        $data->delete();
+        return response()->json(['data' => $data,'status' => 'OK'], 200);
+    }
 }
