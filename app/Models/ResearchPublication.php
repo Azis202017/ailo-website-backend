@@ -13,7 +13,8 @@ class ResearchPublication extends Model
         'title',
         'description',
         'publish_year',
-        'link_publication'
+        'link_publication',
+        'foto',
     ];
     public function research_area() {
         return $this->belongsTo(ResearchArea::class, 'id_research_area');
