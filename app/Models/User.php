@@ -21,6 +21,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'kode_asistant',
+        'jurusan',
+        'tahun_asistant',
+        'foto',
+        'linkedin',
+        'github',
+        'discord',
+        'twitter',
+        'biography',
+        'instagram',
+        'is_assistant',
     ];
 
     /**
@@ -42,4 +53,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->foto = $model->foto ?? 'default.webp';
+        });
+    }
 }
