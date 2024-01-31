@@ -10,26 +10,26 @@ class ResearchAreaController extends Controller
 {
     public function index(Request $request)
     {
-
         $data = ResearchArea::with(['publications'])->get();
-
-
-
 
         $research = $data->map(function ($research_data) {
             $research_data->foto_url = asset('foto/' . $research_data->foto);
             $research_data->icon_url = asset('icon/' . $research_data->icon);
 
+            $research_data->publications->map(function ($publication) {
+                $publication->foto_url = asset('research/' . $publication->foto);
+
+                return $publication;
+            });
+
             return $research_data;
         });
 
-
-
         return response()->json([
             'data' => $research,
-
         ]);
     }
+
     public function create(Request $request)
     {
         try {
