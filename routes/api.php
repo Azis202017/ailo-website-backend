@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EventCategoryController;
+use App\Http\Controllers\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatentController;
@@ -41,3 +43,18 @@ Route::post('/research-publication/create', [ResearchPublicationController::clas
 Route::post('/research-publication/edit/{id}', [ResearchPublicationController::class, 'edit']);
 
 Route::delete('/research-publication/delete/{id}', [ResearchPublicationController::class, 'delete']);
+
+
+Route::get('/event', [EventCategoryController::class, 'index']);
+Route::get('/event-category/detail/{id}', [EventCategoryController::class, 'index']);
+
+Route::post('/event-category/create', [EventCategoryController::class, 'create']);
+Route::post('/event-category/edit/{id}', [EventCategoryController::class, 'edit']);
+
+Route::delete('/event-category/delete/{id}', [EventCategoryController::class, 'delete']);
+
+
+Route::post('/event/create', [EventController::class, 'create']);
+Route::post('/event/edit/{id}', [EventController::class, 'edit']);
+
+Route::delete('/event/delete/{id}', [EventController::class, 'delete']);
