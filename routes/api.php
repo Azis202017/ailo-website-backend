@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatentController;
 use App\Http\Controllers\ResearchAreaController;
 use App\Http\Controllers\ResearchPublicationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,6 @@ Route::post('/event/create', [EventController::class, 'create']);
 Route::post('/event/edit/{id}', [EventController::class, 'edit']);
 
 Route::delete('/event/delete/{id}', [EventController::class, 'delete']);
+
+
+Route::get('/user', [UserController::class,'index']);
