@@ -45,13 +45,13 @@ Route::post('/research-publication/edit/{id}', [ResearchPublicationController::c
 Route::delete('/research-publication/delete/{id}', [ResearchPublicationController::class, 'delete']);
 
 
-Route::get('/event', [EventCategoryController::class, 'index']);
 Route::get('/event-category/detail/{id}', [EventCategoryController::class, 'index']);
 
 Route::post('/event-category/create', [EventCategoryController::class, 'create']);
 Route::post('/event-category/edit/{id}', [EventCategoryController::class, 'edit']);
 
 Route::delete('/event-category/delete/{id}', [EventCategoryController::class, 'delete']);
+Route::get('/event', [EventCategoryController::class, 'index']);
 
 
 Route::post('/event/create', [EventController::class, 'create']);

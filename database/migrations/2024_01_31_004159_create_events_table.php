@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('research_publications', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_research_area');
+            $table->unsignedBigInteger('id_category_event');
             $table->string('title');
-            $table->string('description');
-            $table->datetime('publish_year');
-            $table->string('link_publication');
-            $table->string('foto')->nullable();
+            $table->string('short_title');
+            $table->text('description');
+            $table->string('event_foto');
 
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('research_publications');
+        Schema::dropIfExists('events');
     }
 };
