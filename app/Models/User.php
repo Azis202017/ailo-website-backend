@@ -32,6 +32,9 @@ class User extends Authenticatable
         'biography',
         'instagram',
         'is_assistant',
+        'kategori_asistant',
+        'google_schoolar',
+        'jabatan',
     ];
 
     /**
@@ -58,7 +61,13 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function ($model) {
-            $model->foto = $model->foto ?? 'default.webp';
+            $model->foto = $model->foto ?? 'maskot.webp';
         });
+    }
+    public function expertise() {
+        return $this->hasMany(UserExpertise::class,'id_user');
+    }
+    public function research() {
+        return $this->hasMany(UserResearchPublication::class,'id_user');
     }
 }

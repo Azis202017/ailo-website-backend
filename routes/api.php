@@ -8,6 +8,8 @@ use App\Http\Controllers\PatentController;
 use App\Http\Controllers\ResearchAreaController;
 use App\Http\Controllers\ResearchPublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserExpertiseController;
+use App\Http\Controllers\UserResearchPublicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +22,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/user/create-expertise', [UserExpertiseController::class,'create']);
+    Route::post('/user/create-research', [UserResearchPublicationController::class,'create']);
+    Route::post('/user/edit-profile', [UserController::class, 'update']);
 });
-
 
 
 Route::get('/patents', [PatentController::class, 'index']);
@@ -62,3 +65,9 @@ Route::delete('/event/delete/{id}', [EventController::class, 'delete']);
 
 
 Route::get('/user', [UserController::class,'index']);
+Route::get('/user/{id}', [UserController::class,'show']);
+
+Route::post('/user/create', [UserController::class,'register']);
+Route::post('/user/login', [UserController::class,'login']);
+
+
