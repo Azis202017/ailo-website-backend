@@ -7,16 +7,43 @@ use Illuminate\Http\Request;
 
 class EventCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = EventCategory::with(['event'])->get();
+        $category = $request->input('category');
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $q = $request->input('q'); // assuming 'q' is the parameter name for the search query
 
-        $research = $data->map(function ($eventCategory) {
-            $eventCategory->foto_url = asset('event_foto_categories/' . $eventCategory->foto);
+        $query = EventCategory::with(['event']);
 
-            $eventCategory->event->map(function ($event) {
+        if ($category) {
+            $query->where('title', $category);
+        }
+
+        if ($year) {
+            $query->whereYear('created_at', $year);
+        }
+
+        if ($month) {
+            $query->whereMonth('created_at', $month);
+        }
+
+        if ($q) {
+            $query->where(function ($subQuery) use ($q) {
+                $subQuery->where('title', 'like', '%' . $q . '%')
+                    ->orWhereHas('event', function ($eventSubQuery) use ($q) {
+                        $eventSubQuery->where('title', 'like', '%' . $q . '%');
+                    });
+            });
+        }
+
+        $data = $query->get();
+
+        $data->transform(function ($eventCategory) {
+            $eventCategory->foto_url = asset('event_foto_categories/' . $eventCategory->event_foto_categories);
+
+            $eventCategory->event->transform(function ($event) {
                 $event->foto_url = asset('events/' . $event->foto);
-
                 return $event;
             });
 
@@ -24,9 +51,12 @@ class EventCategoryController extends Controller
         });
 
         return response()->json([
-            'data' => $research,
+            'data' => $data,
         ]);
     }
+
+
+
     public function show($id)
     {
         $eventCategory = EventCategory::find($id);
