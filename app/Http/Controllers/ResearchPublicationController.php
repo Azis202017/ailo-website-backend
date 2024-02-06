@@ -59,7 +59,7 @@ class ResearchPublicationController extends Controller
     public function delete($id)
     {
         $data = ResearchPublication::find($id);
-        $data->delete();
+        
         return response()->json(['data' => $data, 'status' => 'OK'], 200);
     }
 }
